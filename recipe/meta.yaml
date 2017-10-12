@@ -9,7 +9,6 @@ source:
   sha256: eaf9c32a2cf7b9623eb272134b934eb354ef6304299611aa71e3cf47cf83c22b
 
 build:
-  noarch: python
   entry_points:
     - tqdm = tqdm._main:main
   number: 0
