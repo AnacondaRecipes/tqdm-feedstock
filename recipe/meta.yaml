@@ -15,7 +15,6 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
-  noarch: python
   entry_points:
     - tqdm = tqdm._main:main
   number: {{ build }}
