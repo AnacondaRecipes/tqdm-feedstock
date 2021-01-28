@@ -29,7 +29,7 @@ test:
     - pip
     - pytest
     - pytest-timeout
-    - pytest-asyncio  # [py>=37]
+    - pytest-asyncio
   source_files:
     - tests
     - setup.cfg
