@@ -1,4 +1,4 @@
-{% set version = "4.56.0" %}
+{% set version = "4.59.0" %}
 
 package:
   name: tqdm
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
-  sha256: fe3d08dd00a526850568d542ff9de9bbc2a09a791da3c334f3213d8d0bbbca65
+  sha256: d666ae29164da3e517fcf125e41d4fe96e5bb375cd87ff9763f6b38b5592fe33
 
 build:
   noarch: python
@@ -30,17 +30,19 @@ test:
     - pytest
     - pytest-timeout
     - pytest-asyncio
+    - numpy
   source_files:
     - tests
     - setup.cfg
     - pyproject.toml
   imports:
     - tqdm
+    - numpy
   commands:
     - pip check
     - tqdm --help
     - tqdm -v
-    - pytest -k "not tests_perf"
+    - pytest -k "not tests_asyncio and not tests_perf and not tests_pandas"
 
 about:
   home: https://pypi.python.org/pypi/tqdm
