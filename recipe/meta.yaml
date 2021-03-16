@@ -12,7 +12,7 @@ build:
   noarch: python
   entry_points:
     - tqdm = tqdm.cli:main
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -29,20 +29,18 @@ test:
     - pip
     - pytest
     - pytest-timeout
-    - pytest-asyncio
-    - numpy
+    - pytest-asyncio  # [py>=37]
   source_files:
     - tests
     - setup.cfg
     - pyproject.toml
   imports:
     - tqdm
-    - numpy
   commands:
     - pip check
     - tqdm --help
     - tqdm -v
-    - pytest -k "not tests_asyncio and not tests_perf and not tests_pandas"
+    - pytest -k "not tests_perf"
 
 about:
   home: https://pypi.python.org/pypi/tqdm
@@ -58,4 +56,3 @@ extra:
   recipe-maintainers:
     - casperdcl
     - pmlandwehr
-    - ericdill
