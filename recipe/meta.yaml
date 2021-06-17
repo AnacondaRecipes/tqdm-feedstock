@@ -1,4 +1,4 @@
-{% set version = "4.59.0" %}
+{% set version = "4.61.1" %}
 
 package:
   name: tqdm
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
-  sha256: d666ae29164da3e517fcf125e41d4fe96e5bb375cd87ff9763f6b38b5592fe33
+  sha256: 24be966933e942be5f074c29755a95b315c69a91f839a29139bf26ffffe2d3fd
 
 build:
   noarch: python
@@ -20,7 +20,9 @@ requirements:
     - python >=2.7
     - pip
     - setuptools_scm >=3.4
+    - setuptools >=42
     - toml
+    - wheel
   run:
     - python >=2.7
 
@@ -44,7 +46,7 @@ test:
 
 about:
   home: https://pypi.python.org/pypi/tqdm
-  license: MPL-2.0 or MIT
+  license: MPL-2.0 AND MIT
   license_family: MOZILLA
   license_file: LICENCE
   summary: A Fast, Extensible Progress Meter
