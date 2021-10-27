@@ -17,7 +17,7 @@ build:
 
 requirements:
   host:
-    - python >=2.7
+    - python
     - pip
     - setuptools_scm >=3.4
     - setuptools >=42
@@ -33,6 +33,7 @@ test:
     - pytest
     - pytest-timeout
     - pytest-asyncio  # [py>=37]
+    - python <3.10
   source_files:
     - tests
     - setup.cfg
