@@ -1,4 +1,4 @@
-{% set version = "4.62.3" %}
+{% set version = "4.63.0" %}
 
 package:
   name: tqdm
@@ -6,14 +6,14 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
-  sha256: d359de7217506c9851b7869f3708d8ee53ed70a1b8edbba4dbcb47442592920d
+  sha256: 1d9835ede8e394bb8c9dcbffbca02d717217113adc679236873eeaac5bc0b3cd
 
 build:
   noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
   entry_points:
     - tqdm = tqdm.cli:main
-  number: 1
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
@@ -25,15 +25,14 @@ requirements:
     - wheel
   run:
     - python >=2.7
-    - colorama  # [win]
+    - colorama
 
 test:
   requires:
     - pip
     - pytest
     - pytest-timeout
-    - pytest-asyncio  # [py>=37]
-    - python <3.10
+    - pytest-asyncio
   source_files:
     - tests
     - setup.cfg
