@@ -42,8 +42,8 @@ test:
     - pip check
     - tqdm --help
     - tqdm -v
-    - pytest -k "not tests_perf"
-
+    - pytest -k "not tests_perf and not test_pipes" #[win]
+    - pytest -k "not tests_perf" #[unix]
 about:
   home: https://pypi.python.org/pypi/tqdm
   license: MPL-2.0 AND MIT
