@@ -25,13 +25,16 @@ requirements:
   run:
     - python >=2.7
     - colorama
+    - python
+    - colorama  # [win]
+    - importlib_resources  # [py<37]
 
 test:
   requires:
     - pip
     - pytest
     - pytest-timeout
-    - pytest-asyncio
+    - pytest-asyncio  # [py>=37]
   source_files:
     # - tests
     - setup.cfg
