@@ -23,7 +23,7 @@ requirements:
     - toml
     - wheel
   run:
-    - python
+    - python >=2.7
     - colorama
 
 test:
