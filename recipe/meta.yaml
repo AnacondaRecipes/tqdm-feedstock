@@ -23,7 +23,7 @@ requirements:
     - toml
     - wheel
   run:
-    - python >=2.7
+    - python
     - colorama  # [win]
     - importlib_resources # [py<37]
 
@@ -43,7 +43,8 @@ test:
     - pip check
     - tqdm --help
     - tqdm -v
-    - pytest -k "not tests_perf and not test_pipes" #[win]
+    # win-64 does not support certain tests, so some are skipped.
+    - pytest -k "not tests_perf and not test_pipes and not test_as_completed" #[win]
     - pytest -k "not tests_perf" #[unix]
 about:
   home: https://tqdm.github.io/
