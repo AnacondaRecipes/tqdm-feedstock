@@ -32,10 +32,14 @@ requirements:
 
 test:
   requires:
+    - dask
+    - keras
+    - numpy
     - pip
     - pytest
     - pytest-timeout
     - pytest-asyncio
+    - rich
   source_files:
     - tests
     - setup.cfg
@@ -46,9 +50,7 @@ test:
     - pip check
     - tqdm --help
     - tqdm -v
-    # win-64 does not support certain tests, so some are skipped.
-    - pytest -k "not tests_perf and not test_pipes and not test_as_completed" #[win]
-    - pytest -k "not tests_perf" #[unix]
+    - pytest -k "not tests_perf"
 about:
   home: https://tqdm.github.io/
   license: MPL-2.0 AND MIT
