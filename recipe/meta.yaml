@@ -49,7 +49,7 @@ test:
   commands:
     - pip check
     - tqdm --help
-    - tqdm -v
+    - tqdm -v | grep -q {{ version }}
     - pytest -k "not tests_perf"
 about:
   home: https://tqdm.github.io/
