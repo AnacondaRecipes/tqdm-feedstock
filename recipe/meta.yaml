@@ -34,7 +34,7 @@ test:
   requires:
     - dask
     - keras
-    - m2-grep
+    - m2-grep  # [win]
     - numpy
     - pip
     - pytest
