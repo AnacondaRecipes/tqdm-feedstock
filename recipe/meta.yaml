@@ -34,13 +34,13 @@ test:
   requires:
     - dask
     - keras
-    - m2-grep  # [win]
     - numpy
     - pip
     - pytest
     - pytest-timeout
     - pytest-asyncio
     - rich
+    - ripgrep
   source_files:
     - tests
     - setup.cfg
@@ -50,7 +50,7 @@ test:
   commands:
     - pip check
     - tqdm --help
-    - tqdm -v | grep -Fxq {{ version }}
+    - tqdm -v | rg {{ version }}
     - pytest -k "not tests_perf"
 about:
   home: https://tqdm.github.io/
