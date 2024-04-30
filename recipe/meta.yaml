@@ -57,7 +57,8 @@ about:
   license: MPL-2.0 AND MIT
   license_family: MOZILLA
   license_file: LICENCE
-  summary: A Fast, Extensible Progress Bar for Python and CLI
+  summary: A Fast, Extensible Progress Meter
+  description: A Fast, Extensible Progress Bar for Python and CLI
   dev_url: https://github.com/tqdm/tqdm
   doc_url: https://tqdm.github.io/
 
