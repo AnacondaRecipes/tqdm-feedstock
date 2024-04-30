@@ -1,4 +1,4 @@
-{% set version = "4.65.0" %}
+{% set version = "4.66.2" %}
 
 package:
   name: tqdm
@@ -6,19 +6,20 @@ package:
 
 source:
   url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
-  sha256: 1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5
+  sha256: 6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - tqdm = tqdm.cli:main
+  skip: true  # [py<37]
 
 requirements:
   host:
     - python
     - pip
-    - setuptools_scm
+    - setuptools_scm >=3.4
     - setuptools
     - toml
     - wheel
@@ -26,24 +27,22 @@ requirements:
     - python
     - colorama  # [win]
   run_constrained:
-    - slack-sdk
-    - requests
     - ipywidgets >=6
 
 test:
   requires:
-    - dask
-    - keras
+    - dask-core
+    - pandas
     - numpy
     - pip
-    - pytest
+    - pytest >=6
     - pytest-timeout
+    - pytest-xdist
     - pytest-asyncio
     - rich
     - ripgrep
   source_files:
     - tests
-    - setup.cfg
     - pyproject.toml
   imports:
     - tqdm
@@ -52,12 +51,13 @@ test:
     - tqdm --help
     - tqdm -v | rg {{ version }}
     - pytest -k "not tests_perf"
+
 about:
   home: https://tqdm.github.io/
   license: MPL-2.0 AND MIT
   license_family: MOZILLA
   license_file: LICENCE
-  summary: A Fast, Extensible Progress Meter
+  summary: A Fast, Extensible Progress Bar for Python and CLI
   dev_url: https://github.com/tqdm/tqdm
   doc_url: https://tqdm.github.io/
 
