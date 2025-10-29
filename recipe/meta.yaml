@@ -5,11 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
   sha256: f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - tqdm = tqdm.cli:main
