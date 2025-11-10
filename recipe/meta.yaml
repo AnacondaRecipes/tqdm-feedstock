@@ -34,9 +34,9 @@ requirements:
 #                ^^^^^^^^^^^^
 # E   AttributeError: module 'dask' has no attribute 'delayed'
 {% set deselect_tests = "" %}
-{% set deselect_tests = " --deselect=tests/tests_dask.py::test_dask" %}  # [py>313]
+{% set deselect_tests = deselect_tests + " --deselect=tests/tests_dask.py::test_dask" %}  # [py>313]
 # E   FileNotFoundError: [WinError 2] The system cannot find the file specified
-{% set deselect_tests = " --deselect=tests/tests_main.py::test_pipes" %}  # [win]
+{% set deselect_tests = deselect_tests + " --deselect=tests/tests_main.py::test_pipes" %}  # [win]
 
 test:
   requires:
