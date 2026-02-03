@@ -1,5 +1,9 @@
 {% set name = "tqdm" %}
-{% set version = "4.67.1" %}
+{% set version = "4.67.2" %}
+{% set deselect_tests = "" %}
+{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_dask.py::test_dask"' %}  # [py>313]
+{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_main.py::test_pipes"' %}  # [win]
+{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_pandas.py::test_pandas_leave"' %}
 
 package:
   name: {{ name }}
@@ -7,10 +11,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2
+  sha256: 649aac53964b2cb8dec76a14b405a4c0d13612cb8933aae547dd144eacc99653
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - tqdm = tqdm.cli:main
@@ -23,7 +27,7 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
-    - wheel
+    - setuptools-scm >=3.4
   run:
     - python
     - colorama  # [win]
@@ -33,14 +37,8 @@ requirements:
 #     schedule = [dask.delayed(sleep)(i / 10) for i in range(5)]
 #                ^^^^^^^^^^^^
 # E   AttributeError: module 'dask' has no attribute 'delayed'
-{% set deselect_tests = "" %}
-{% set deselect_tests = deselect_tests + " --deselect=tests/tests_dask.py::test_dask" %}  # [py>313]
 # E   FileNotFoundError: [WinError 2] The system cannot find the file specified
-{% set deselect_tests = deselect_tests + " --deselect=tests/tests_main.py::test_pipes" %}  # [win]
 # test_pandas_leave can raise AssertionError randomly on different platforms
-{% set deselect_tests = deselect_tests + " --deselect=tests/tests_pandas.py::test_pandas_leave" %}
-
-
 test:
   requires:
     - dask-core
