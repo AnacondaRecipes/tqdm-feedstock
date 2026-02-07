@@ -1,9 +1,5 @@
 {% set name = "tqdm" %}
-{% set version = "4.67.2" %}
-{% set deselect_tests = "" %}
-{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_dask.py::test_dask"' %}  # [py>313]
-{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_main.py::test_pipes"' %}  # [win]
-{% set deselect_tests = 'deselect_tests + " --deselect=tests/tests_pandas.py::test_pandas_leave"' %}
+{% set version = "4.67.3" %}
 
 package:
   name: {{ name }}
@@ -11,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 649aac53964b2cb8dec76a14b405a4c0d13612cb8933aae547dd144eacc99653
+  sha256: 7d825f03f89244ef73f1d4ce193cb1774a8179fd96f31d7e1dcde62092b960bb
 
 build:
   number: 0
@@ -27,18 +23,20 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
-    - setuptools-scm >=3.4
+    - wheel
   run:
     - python
-    - colorama  # [win]
+    - colorama  # [win and py<38]
   run_constrained:
     - ipywidgets >=6
 
-#     schedule = [dask.delayed(sleep)(i / 10) for i in range(5)]
-#                ^^^^^^^^^^^^
-# E   AttributeError: module 'dask' has no attribute 'delayed'
+{% set deselect_tests = "" %}
 # E   FileNotFoundError: [WinError 2] The system cannot find the file specified
+{% set deselect_tests = deselect_tests + " --deselect=tests/tests_main.py::test_pipes" %}  # [win]
 # test_pandas_leave can raise AssertionError randomly on different platforms
+{% set deselect_tests = deselect_tests + " --deselect=tests/tests_pandas.py::test_pandas_leave" %}
+
+
 test:
   requires:
     - dask-core
@@ -63,14 +61,14 @@ test:
     - pytest -k "not tests_perf" tests/ -W ignore::FutureWarning {{ deselect_tests }}
 
 about:
-  home: https://tqdm.github.io/
+  home: https://tqdm.github.io
   license: MPL-2.0 AND MIT
   license_family: MOZILLA
   license_file: LICENCE
   summary: A Fast, Extensible Progress Meter
   description: A Fast, Extensible Progress Bar for Python and CLI
   dev_url: https://github.com/tqdm/tqdm
-  doc_url: https://tqdm.github.io/
+  doc_url: https://tqdm.github.io
 
 extra:
   recipe-maintainers:
