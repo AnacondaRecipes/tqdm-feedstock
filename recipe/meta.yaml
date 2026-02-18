@@ -10,7 +10,7 @@ source:
   sha256: 7d825f03f89244ef73f1d4ce193cb1774a8179fd96f31d7e1dcde62092b960bb
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - tqdm = tqdm.cli:main
@@ -26,7 +26,7 @@ requirements:
     - wheel
   run:
     - python
-    - colorama  # [win and py<38]
+    - colorama  # [win]
   run_constrained:
     - ipywidgets >=6
 
