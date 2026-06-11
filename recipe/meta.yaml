@@ -1,8 +1,5 @@
 {% set name = "tqdm" %}
 {% set version = "4.68.2" %}
-{% set deselect_tests = "test_pandas_leave" %}
-{% set deselect_tests = deselect_tests + " or tests_perf" %}
-{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
 # E   FileNotFoundError: [WinError 2] The system cannot find the file specified
 # test_pandas_leave can raise AssertionError randomly on different platforms
@@ -28,11 +25,16 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
+    - wheel
   run:
     - python
     - colorama  # [win]
   run_constrained:
     - ipywidgets >=6
+
+{% set deselect_tests = "test_pandas_leave" %}
+{% set deselect_tests = deselect_tests + " or tests_perf" %}
+{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
 test:
   requires:
