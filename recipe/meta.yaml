@@ -1,5 +1,8 @@
 {% set name = "tqdm" %}
-{% set version = "4.68.2" %}
+{% set version = "4.70.0" %}
+{% set deselect_tests = "test_pandas_leave" %}
+{% set deselect_tests = deselect_tests + " or tests_perf" %}
+{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
 # E   FileNotFoundError: [WinError 2] The system cannot find the file specified
 # test_pandas_leave can raise AssertionError randomly on different platforms
@@ -9,14 +12,14 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 89c230e8dbc67c7615c142487111222f878c77427ea09549960f62389e258add
+    sha256: 55b0b0dbd97462d06ebee91e4dac24ed4d4702be82b24f07e6c1d27e08cea220
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - tqdm = tqdm.cli:main
-  skip: true  # [py<37]
+  skip: true  # [py<38]
 
 requirements:
   host:
@@ -25,16 +28,12 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
-    - wheel
+    - setuptools-scm >=3.4
   run:
     - python
     - colorama  # [win]
   run_constrained:
     - ipywidgets >=6
-
-{% set deselect_tests = "test_pandas_leave" %}
-{% set deselect_tests = deselect_tests + " or tests_perf" %}
-{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
 test:
   requires:
