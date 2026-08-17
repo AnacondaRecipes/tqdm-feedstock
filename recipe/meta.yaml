@@ -1,11 +1,6 @@
 {% set name = "tqdm" %}
 {% set version = "4.70.0" %}
-{% set deselect_tests = "test_pandas_leave" %}
-{% set deselect_tests = deselect_tests + " or tests_perf" %}
-{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
-# E   FileNotFoundError: [WinError 2] The system cannot find the file specified
-# test_pandas_leave can raise AssertionError randomly on different platforms
 package:
   name: {{ name }}
   version: {{ version }}
@@ -28,12 +23,17 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
-    - setuptools-scm >=3.4
   run:
     - python
     - colorama  # [win]
   run_constrained:
     - ipywidgets >=6
+
+# E   FileNotFoundError: [WinError 2] The system cannot find the file specified
+# test_pandas_leave can raise AssertionError randomly on different platforms
+{% set deselect_tests = "test_pandas_leave" %}
+{% set deselect_tests = deselect_tests + " or tests_perf" %}
+{% set deselect_tests = deselect_tests + " or test_pipes" %}  # [win]
 
 test:
   requires:
@@ -56,7 +56,7 @@ test:
     - pip check
     - tqdm --help
     - tqdm -v | rg {{ version }}
-    - pytest -v -k "not ({{ deselect_tests }})" tests/ -W ignore::FutureWarning
+    - pytest -vv -k "not ({{ deselect_tests }})" tests/ -W ignore::FutureWarning
 
 about:
   home: https://tqdm.github.io
