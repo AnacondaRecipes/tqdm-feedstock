@@ -23,6 +23,7 @@ requirements:
     - setuptools_scm >=3.4
     - setuptools >=42
     - toml
+    - wheel
   run:
     - python
     - colorama  # [win]
